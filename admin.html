@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Admin - ClickHogarPy</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Poppins', sans-serif; background: #f5f5f5; padding: 20px; }
+        .login { max-width: 400px; margin: 100px auto; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .panel { max-width: 800px; margin: 0 auto; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); display: none; }
+        h1 { color: #1e3c72; margin-bottom: 20px; text-align: center; }
+        input, textarea { width: 100%; padding: 12px; margin: 10px 0; border: 2px solid #e0e0e0; border-radius: 12px; font-size: 1rem; }
+        button { width: 100%; padding: 14px; background: linear-gradient(135deg, #1e3c72, #2a5298); color: white; border: none; border-radius: 50px; font-size: 1rem; font-weight: bold; cursor: pointer; margin: 10px 0; }
+        button:hover { opacity: 0.9; }
+        .producto-lista { margin: 20px 0; }
+        .producto-item { background: #f9f9f9; padding: 15px; border-radius: 12px; margin: 10px 0; display: flex; justify-content: space-between; align-items: center; }
+        .btn-borrar { background: #ff4444; width: auto; padding: 8px 15px; margin: 0; }
+        .codigo-generado { background: #1e3c72; color: white; padding: 20px; border-radius: 12px; margin: 20px 0; word-break: break-all; font-size: 0.85rem; }
+        .instrucciones { background: #fff3cd; padding: 15px; border-radius: 12px; margin: 20px 0; border-left: 4px solid #ffc107; }
+        .preview { max-width: 100px; height: 100px; object-fit: cover; border-radius: 8px; }
+    </style>
+</head>
+<body>
+    <div class="login" id="login">
+        <h1>🔐 Panel Admin</h1>
+        <input type="password" id="clave" placeholder="Contraseña" onkeypress="if(event.key==='Enter') entrar()">
+        <button onclick="entrar()">Entrar</button>
+    </div>
+
+    <div class="panel" id="panel">
+        <h1>📦 Agregar Producto</h1>
+        
+        <input type="text" id="nombre" placeholder="Nombre del producto ej: Heladera MOX 300L">
+        <input type="number" id="precio" placeholder="Precio de venta ej: 3200000">
+        <input type="number" id="precioAnterior" placeholder="Precio anterior tachado ej: 3800000">
+        <input type="text" id="imagen" placeholder="Nombre de la foto ej: 1.jpg o heladera.jpg">
+        
+        <div class="instrucciones">
+            <strong>⚠️ IMPORTANTE:</strong><br>
+            1. Subí la foto a la carpeta <code>imagenes/</code> en GitHub primero<br>
+            2. Poné el nombre exacto acá: <code>imagenes/1.jpg</code><br>
+            3. Click en "Agregar Producto"<br>
+            4. Copiá el código de abajo y pegalo en tu <code>index.html</code>
+        </div>
+
+        <button onclick="agregarProducto()">➕ Agregar Producto</button>
+        
+        <h2 style="margin-top: 30px;">📋 Productos Cargados</h2>
+        <div id="lista" class="producto-lista"></div>
+
+        <h2 style="margin-top: 30px;">💻 Código para index.html</h2>
+        <div class="instrucciones">
+            Copiá TODO esto y reemplazá el array <code>const productos = [...]</code> en tu <code>index.html</code>
+        </div>
+        <div class="codigo-generado" id="codigo"></div>
+        <button onclick="copiarCodigo()">📋 Copiar Código</button>
+        <button onclick="location.href='index.html'" style="background: #25d366;">🏠 Ver Mi Web</button>
+    </div>
+
+    <script>
+        let productos = JSON.parse(localStorage.getItem('productosClickHogar')) || [];
+
+        function entrar() {
+            const clave = document.getElementById('clave').value;
+            if (clave === 'clickhogar2026') {
+                document.getElementById('login').style.display = 'none';
+                document.getElementById('panel').style.display = 'block';
+                mostrarLista();
+                generarCodigo();
+            } else {
+                alert('❌ Contraseña incorrecta');
+            }
+        }
+
+        function agregarProducto() {
+            const nombre = document.getElementById('nombre').value.trim();
+            const precio = parseInt(document.getElementById('precio').value);
+            const precioAnterior = parseInt(document.getElementById('precioAnterior').value) || null;
+            const imagen = document.getElementById('imagen').value.trim();
+
+            if (!nombre || !precio || !imagen) {
+                alert('❌ Completá nombre, precio e imagen');
+                return;
+            }
+
+            const nuevo = {
+                id: Date.now(),
+                nombre: nombre,
+                precio_venta: precio,
+                precio_anterior: precioAnterior,
+                imagen: imagen.startsWith('imagenes/') ? imagen : 'imagenes/' + imagen
+            };
+
+            productos.push(nuevo);
+            localStorage.setItem('productosClickHogar', JSON.stringify(productos));
+            
+            document.getElementById('nombre').value = '';
+            document.getElementById('precio').value = '';
+            document.getElementById('precioAnterior').value = '';
+            document.getElementById('imagen').value = '';
+            
+            mostrarLista();
+            generarCodigo();
+            alert('✅ Producto agregado. Copiá el código de abajo.');
+        }
+
+        function borrarProducto(id) {
+            productos = productos.filter(p => p.id !== id);
+            localStorage.setItem('productosClickHogar', JSON.stringify(productos));
+            mostrarLista();
+            generarCodigo();
+        }
+
+        function mostrarLista() {
+            const lista = document.getElementById('lista');
+            if (productos.length === 0) {
+                lista.innerHTML = '<p style="text-align:center; color:#999;">No hay productos cargados</p>';
+                return;
+            }
+            lista.innerHTML = productos.map(p => `
+                <div class="producto-item">
+                    <div>
+                        <strong>${p.nombre}</strong><br>
+                        <span style="color:#2a5298;">₲ ${p.precio_venta.toLocaleString('es-PY')}</span>
+                        ${p.precio_anterior ? `<span style="text-decoration:line-through; color:#ff4444; margin-left:10px;">₲ ${p.precio_anterior.toLocaleString('es-PY')}</span>` : ''}<br>
+                        <small style="color:#666;">${p.imagen}</small>
+                    </div>
+                    <button class="btn-borrar" onclick="borrarProducto(${p.id})">🗑️</button>
+                </div>
+            `).join('');
+        }
+
+        function generarCodigo() {
+            const codigo = `const productos = ${JSON.stringify(productos, null, 4)};`;
+            document.getElementById('codigo').innerText = codigo;
+        }
+
+        function copiarCodigo() {
+            const codigo = document.getElementById('codigo').innerText;
+            navigator.clipboard.writeText(codigo);
+            alert('✅ Código copiado. Pegalo en tu index.html');
+        }
+    </script>
+</body>
+</html>
