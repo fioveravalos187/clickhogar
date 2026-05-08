@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ClickHogarPy - Día de la Madre 2026</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Poppins', sans-serif; background: linear-gradient(135deg, #fff5f5 0%, #ffe8e8 100%); min-height: 100vh; }
+        .floating-btn { position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none; font-size: 28px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); z-index: 1000; background: linear-gradient(135deg, #25d366, #128C7E); color: white; }
+        .banner-madre { background: linear-gradient(135deg, #ff69b4, #ff1493, #ff6b6b); padding: 25px 20px; text-align: center; border-radius: 20px; margin: 20px; color: white; }
+        .banner-madre h2 { font-size: 1.8rem; margin-bottom: 10px; }
+        .descuento-grande { font-size: 2.5rem; font-weight: bold; background: white; color: #ff1493; display: inline-block; padding: 5px 20px; border-radius: 50px; margin: 10px 0; }
+        .countdown { display: flex; justify-content: center; gap: 15px; margin-top: 15px; flex-wrap: wrap; }
+        .countdown-item { background: white; padding: 8px 15px; border-radius: 15px; text-align: center; min-width: 70px; }
+        .countdown-number { font-size: 1.5rem; font-weight: bold; color: #ff1493; }
+        .countdown-label { font-size: 0.7rem; color: #666; }
+        header { background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #1e3c72 100%); color: white; padding: 30px 20px; text-align: center; }
+        .logo { max-width: 120px; height: auto; background: white; border-radius: 20px; padding: 10px; margin-bottom: 15px; }
+        h1 { font-size: 2rem; margin: 10px 0; }
+        .btn-header { background: linear-gradient(135deg, #25d366, #128C7E); color: white; padding: 10px 25px; border-radius: 50px; text-decoration: none; font-weight: 600; display: inline-block; margin: 10px; }
+        .badges { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-top: 15px; }
+        .badge { background: rgba(255,255,255,0.2); padding: 5px 15px; border-radius: 50px; font-size: 0.75rem; }
+        main { max-width: 1400px; margin: 20px auto; padding: 0 20px; }
+        h2 { text-align: center; margin-bottom: 30px; color: #1e3c72; font-size: 1.8rem; }
+        .productos-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; margin-bottom: 40px; }
+        .producto-card { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1); transition: all 0.3s ease; }
+        .producto-card:hover { transform: translateY(-8px); }
+        .producto-card img { width: 100%; height: 220px; object-fit: cover; }
+        .producto-card h3 { padding: 15px 15px 5px; font-size: 1rem; color: #333; min-height: 60px; }
+        .precio-container { padding: 0 15px; margin: 10px 0; text-align: center; }
+        .precio-anterior { text-decoration: line-through; color: #ff4444; font-size: 0.85rem; margin-right: 8px; }
+        .precio-normal { color: #2a5298; font-size: 1.3rem; font-weight: bold; }
+        .producto-card button { width: calc(100% - 30px); margin: 10px 15px 20px; padding: 12px; background: linear-gradient(135deg, #1e3c72, #2a5298); color: white; border: none; border-radius: 50px; font-weight: 600; cursor: pointer; }
+        .carrito-section { background: white; border-radius: 25px; padding: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); margin-top: 30px; }
+        .carrito-header h3 { color: #1e3c72; font-size: 1.3rem; border-left: 4px solid #ff69b4; padding-left: 15px; margin: 0 0 20px 0; }
+        .carrito-vacio { text-align: center; color: #999; padding: 40px; }
+        .pedido-form { display: flex; flex-direction: column; gap: 12px; margin-top: 20px; }
+        .pedido-form input { padding: 12px 15px; border: 2px solid #e0e0e0; border-radius: 12px; font-size: 0.9rem; }
+        .pedido-form button { background: linear-gradient(135deg, #25d366, #128C7E); color: white; border: none; padding: 14px; border-radius: 50px; font-size: 1rem; font-weight: bold; cursor: pointer; }
+        footer { background: linear-gradient(135deg, #1e3c72, #2a5298); color: white; text-align: center; padding: 30px 20px; margin-top: 50px; }
+        .btn-admin { display: block; text-align: center; margin-top: 20px; color: #999; font-size: 0.8rem; text-decoration: none; }
+        @media (max-width: 768px) { h1 { font-size: 1.5rem; } .productos-grid { grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 15px; } }
+    </style>
+</head>
+<body>
+    <a href="https://wa.me/595992444123" target="_blank" class="floating-btn">💬</a>
+    <header>
+        <img src="imagenes/logo.jpeg" alt="ClickHogarPy" class="logo">
+        <h1>ClickHogarPy</h1>
+        <p>✨ TU HOGAR A UN CLICK DE DISTANCIA ✨</p>
+        <a href="https://wa.me/595992444123" target="_blank" class="btn-header">📱 Escríbenos por WhatsApp</a>
+        <div class="badges">
+            <span class="badge">🚚 ENVIOS A TODO PARAGUAY</span>
+            <span class="badge">✅ CALIDAD Y GARANTÍA</span>
+            <span class="badge">🔒 COMPRA SEGURA</span>
+            <span class="badge">💰 PAGO CONTRA ENTREGA</span>
+        </div>
+    </header>
+    <div class="banner-madre">
+        <h2>🌸 ¡FELIZ DÍA DE LA MADRE! 🌸</h2>
+        <p>💝 Regalo especial para mamá 💝</p>
+        <div class="descuento-grande">10% OFF</div>
+        <p>en toda la línea de electrodomésticos</p>
+        <div class="countdown" id="countdown">
+            <div class="countdown-item"><div class="countdown-number" id="days">00</div><div class="countdown-label">Días</div></div>
+            <div class="countdown-item"><div class="countdown-number" id="hours">00</div><div class="countdown-label">Horas</div></div>
+            <div class="countdown-item"><div class="countdown-number" id="minutes">00</div><div class="countdown-label">Minutos</div></div>
+            <div class="countdown-item"><div class="countdown-number" id="seconds">00</div><div class="countdown-label">Segundos</div></div>
+        </div>
+    </div>
+    <main>
+        <h2>🛍️ Productos Destacados para Mamá</h2>
+        <div id="productos-container" class="productos-grid"></div>
+        <div class="carrito-section">
+            <div class="carrito-header"><h3>🛒 Tu Pedido</h3></div>
+            <div id="carrito-lista" class="carrito-items">
+                <div class="carrito-vacio">📦 Tu carrito está vacío<br><span style="font-size: 0.8rem;">Agregá productos para mamá ❤️</span></div>
+            </div>
+            <form id="form-pedido" class="pedido-form">
+                <input type="text" id="cliente" placeholder="👤 Tu nombre completo" required>
+                <input type="tel" id="telefono" placeholder="📞 Tu teléfono" required>
+                <input type="text" id="direccion" placeholder="📍 Dirección de entrega" required>
+                <button type="submit">✅ REALIZAR PEDIDO POR WHATSAPP ✅</button>
+            </form>
+        </div>
+    </main>
+    <footer>
+        <p><strong>ClickHogarPy</strong> 🏠</p>
+        <p>📞 0992444123 | 📧 clickhogarpy@gmail.com</p>
+        <a href="admin.html" class="btn-admin">🔐 Panel Admin</a>
+    </footer>
+    <script>
+        let carrito = [];
+        const productos = JSON.parse(localStorage.getItem('productosClickHogar')) || [];
+        function mostrarProductos() {
+            const container = document.getElementById('productos-container');
+            if (productos.length === 0) {
+                container.innerHTML = '<p style="text-align:center; grid-column: 1/-1; color:#999;">No hay productos. Cargalos desde el Panel Admin.</p>';
+                return;
+            }
+            container.innerHTML = productos.map(p => `
+                <div class="producto-card">
+                    <img src="${p.imagen}" alt="${p.nombre}" onerror="this.src='imagenes/logo.jpeg'">
+                    <h3>${p.nombre}</h3>
+                    <div class="precio-container">
+                        ${p.precio_anterior ? `<div><span class="precio-anterior">₲ ${p.precio_anterior.toLocaleString('es-PY')}</span></div>` : ''}
+                        <div><span class="precio-normal">₲ ${p.precio_venta.toLocaleString('es-PY')}</span></div>
+                    </div>
+                    <button onclick="agregarAlCarrito(${p.id})">➕ Añadir al carrito</button>
+                </div>
+            `).join('');
+        }
+        function agregarAlCarrito(id) {
+            const producto = productos.find(p => p.id === id);
+            if (!producto) return;
+            const existente = carrito.find(item => item.id === id);
+            if (existente) { existente.cantidad++; } 
+            else { carrito.push({ id: producto.id, nombre: producto.nombre, precio: producto.precio_venta, cantidad: 1 }); }
+            actualizarCarrito();
+            alert(`✅ ${producto.nombre} agregado`);
+        }
+        function actualizarCarrito() {
+            const container = document.getElementById('carrito-lista');
+            if (carrito.length === 0) {
+                container.innerHTML = '<div class="carrito-vacio">📦 Tu carrito está vacío<br><span style="font-size: 0.8rem;">Agregá productos para mamá ❤️</span></div>';
+                return;
+            }
+            let total = 0;
+            container.innerHTML = carrito.map(item => {
+                const totalItem = item.precio * item.cantidad;
+                total += totalItem;
+                return `<div style="padding:10px; border-bottom:1px solid #eee; display:flex; justify-content:space-between;"><span>${item.nombre} x${item.cantidad}</span> <strong>₲ ${totalItem.toLocaleString('es-PY')}</strong></div>`;
+            }).join('') + `<div style="padding:15px; font-weight:bold; font-size:1.2rem; color:#1e3c72; text-align:right;">TOTAL: ₲ ${total.toLocaleString('es-PY')}</div>`;
+        }
+        document.getElementById('form-pedido').addEventListener('submit', (e) => {
+            e.preventDefault();
+            if (carrito.length === 0) { alert('❌ Agregá productos al carrito primero'); return; }
+            const cliente = document.getElementById('cliente').value.trim();
+            const telefono = document.getElementById('telefono').value.trim();
+            const direccion = document.getElementById('direccion').value.trim();
+            if (!cliente || !telefono || !direccion) { alert('❌ Completá todos los campos'); return; }
+            let total = carrito.reduce((sum, p) => sum + (p.precio * p.cantidad), 0);
+            let mensaje = `🛒 *NUEVO PEDIDO - CLICKHOGARPY*%0A👤 *Cliente:* ${cliente}%0A📞 *Teléfono:* ${telefono}%0A📍 *Dirección:* ${direccion}%0A💰 *Total:* ₲ ${total.toLocaleString('es-PY')}%0A%0A📦 *PRODUCTOS:*%0A`;
+            carrito.forEach(p => { mensaje += `- ${p.nombre} x${p.cantidad} = ₲ ${(p.precio * p.cantidad).toLocaleString('es-PY')}%0A`; });
+            mensaje += `%0A✅ *Pedido confirmado*`;
+            window.open(`https://wa.me/595992444123?text=${mensaje}`, '_blank');
+            carrito = [];
+            actualizarCarrito();
+            document.getElementById('form-pedido').reset();
+            alert('✅ Pedido enviado. Te contactaremos pronto.');
+        });
+        function actualizarCountdown() {
+            const diaMadre = new Date(new Date().getFullYear(), 4, 15);
+            const ahora = new Date();
+            if (ahora > diaMadre) diaMadre.setFullYear(diaMadre.getFullYear() + 1);
+            const diff = diaMadre - ahora;
+            document.getElementById('days').innerText = String(Math.floor(diff / 86400000)).padStart(2,'0');
+            document.getElementById('hours').innerText = String(Math.floor((diff % 86400000) / 3600000)).padStart(2,'0');
+            document.getElementById('minutes').innerText = String(Math.floor((diff % 3600000) / 60000)).padStart(2,'0');
+            document.getElementById('seconds').innerText = String(Math.floor((diff % 60000) / 1000)).padStart(2,'0');
+        }
+        setInterval(actualizarCountdown, 1000);
+        actualizarCountdown();
+        mostrarProductos();
+    </script>
+</body>
+</html>
